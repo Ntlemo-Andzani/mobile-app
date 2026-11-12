@@ -3,8 +3,9 @@
 # ---------- Stage 1: build the WAR with Maven ----------
 FROM maven:3.9-eclipse-temurin-11 AS build
 WORKDIR /app
-COPY pom.xml .
-COPY src ./src
+# The Maven project is nested two folders deep in this repo.
+COPY realtime-chat/realtime-chat/pom.xml .
+COPY realtime-chat/realtime-chat/src ./src
 RUN mvn -q -B clean package
 
 # ---------- Stage 2: run it on Tomcat 9 ----------
